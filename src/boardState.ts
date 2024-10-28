@@ -1,6 +1,7 @@
 import { BoardState, PlayerState, Tile, Wind } from "./types.ts";
 import { shuffle } from "./utils/shuffle.ts";
 import { allTiles } from "./tiles.ts";
+import { produce, WritableDraft } from "immer";
 
 const makePlayer = (wind: Wind, hand: Tile[]): PlayerState => ({
   hand,
@@ -34,3 +35,46 @@ export const makeInitialBoardState = (): BoardState => {
     },
   };
 };
+
+export const getActivePlayer = (board: BoardState) =>
+  board.players.find((x) => x.wind === board.wind)!;
+
+const nextWind = (board: BoardState): Wind => {
+  switch (board.wind) {
+    case "east":
+      return "south";
+    case "south":
+      return "west";
+    case "west":
+      return "north";
+    case "north":
+      return "east";
+  }
+};
+
+export const discardTile = (
+  state: WritableDraft<BoardState>,
+  toDiscard: Tile,
+) => {
+  const activePlayer = getActivePlayer(state);
+  console.log(activePlayer);
+
+  activePlayer.hand = activePlayer.hand.filter((x) => x.id !== toDiscard.id);
+  activePlayer.discards.push(toDiscard);
+};
+
+export const drawTile = (state: WritableDraft<BoardState>) => {
+  const activePlayer = getActivePlayer(state);
+
+  // TODO handle empty array
+  const pickedTile = state.wall.active.pop()!;
+
+  activePlayer.hand.push(pickedTile);
+};
+
+export const finishTurn = (original: BoardState, toDiscard: Tile) =>
+  produce(original, (state) => {
+    discardTile(state, toDiscard);
+    state.wind = nextWind(state);
+    drawTile(state);
+  });
