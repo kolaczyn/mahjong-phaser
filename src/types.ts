@@ -8,7 +8,7 @@ export type SuitTile = {
   value: Value;
 };
 
-type Wind = "east" | "south" | "west" | "north";
+export type Wind = "east" | "south" | "west" | "north";
 
 export type WindTile = {
   id: string;
@@ -27,7 +27,6 @@ export type DragonTile = {
 export type Tile = SuitTile | WindTile | DragonTile;
 
 export type PlayerState = {
-  id: string;
   hand: Tile[];
   discards: Tile[];
   wind: Wind;
@@ -37,5 +36,8 @@ export type PlayerState = {
 export type BoardState = {
   players: PlayerState[];
   wind: Wind;
-  wall: Tile[];
+  wall: {
+    active: Tile[];
+    dead: Tile[];
+  };
 };

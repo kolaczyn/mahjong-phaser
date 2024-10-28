@@ -180,6 +180,7 @@ export const windTiles: WindTile[] = [
   { id: "north-wind-4", kind: "wind", value: "north" },
 ];
 
+// total 136 tiles
 export const allTiles = [
   ...pinTiles,
   ...souTiles,
