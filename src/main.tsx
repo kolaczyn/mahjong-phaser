@@ -1,4 +1,11 @@
-import { render } from 'preact'
-import { App } from './app.tsx'
+import { render } from "preact";
+import { App } from "./app.tsx";
+import { phaserInit } from "./phaserInit.ts";
 
-render(<App />, document.getElementById('app')!)
+const showReact = true;
+
+if (showReact) {
+  render(<App />, document.getElementById("app")!);
+} else {
+  phaserInit();
+}
