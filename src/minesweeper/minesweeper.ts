@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { Grid } from "./grid.ts";
 
 export class MineSweeper extends Phaser.Scene {
   constructor() {

@@ -3,7 +3,7 @@ import GameConfig = Phaser.Types.Core.GameConfig;
 import { MineSweeper } from "./minesweeper.ts";
 import { Intro } from "./intro.ts";
 
-export const config: GameConfig = {
+export const minesweeperConfig: GameConfig = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,

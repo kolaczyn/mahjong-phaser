@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { Cell } from "./cell.ts";
 
 export class Grid {
   constructor(scene, width, height, bombs) {
